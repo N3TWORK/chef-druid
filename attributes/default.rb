@@ -1,6 +1,8 @@
+Chef::Log.info("********* XYZ ***********************")
+
 # Downloading
 default[:druid][:version] = "0.6.52"
-default[:druid][:mirror] = "http://static.druid.io/artifacts/releases/"
+default[:druid][:mirror] = "http://static.druid.io/artifacts/releases"
 default[:druid][:checksum] = "8ecd2886f4d954cfbc410fe50bdaf250b7751c5a9e7cd18d4d291938f753c549"
 
 # Installation

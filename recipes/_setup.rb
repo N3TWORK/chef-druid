@@ -32,6 +32,7 @@ end
 druid_dir = "druid-services-#{node[:druid][:version]}"
 druid_archive = "#{druid_dir}-bin.tar.gz"
 remote_file ::File.join(Chef::Config[:file_cache_path], druid_archive) do
+  Chef::Log.info("Installing file '#{druid_archive}' from site '#{node[:druid][:mirror]}'")
   owner "root"
   mode "0644"
   source ::File.join(node[:druid][:mirror], druid_archive)
@@ -43,8 +44,8 @@ unless ::File.exists?(::File.join(node[:druid][:install_dir], druid_dir))
   execute 'install druid' do
     cwd Chef::Config[:file_cache_path]
     command "tar -C '#{node[:druid][:install_dir]}' -zxf '#{druid_archive}' " +
-            "&& chown -R '#{node[:druid][:user]}:#{node[:druid][:group]}' #{node[:druid][:install_dir]} " +
-            "&& ln -sf '#{::File.join(node[:druid][:install_dir], druid_dir)}' #{::File.join(node[:druid][:install_dir], "current")}"
+            "&& chown -R #{node[:druid][:user]}:#{node[:druid][:group]} '#{node[:druid][:install_dir]}' " +
+            "&& ln -sf '#{::File.join(node[:druid][:install_dir], druid_dir)}' '#{::File.join(node[:druid][:install_dir], "current")}'"
     #notifies
   end
 end
