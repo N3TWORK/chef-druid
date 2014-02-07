@@ -56,6 +56,7 @@ end
 directory ::File.join(node[:druid][:config_dir], node_type) do
   recursive true
   owner node[:druid][:user]
+  group node[:druid][:group]
   mode "0755"
 end
 
@@ -69,6 +70,8 @@ props["druid.service"] = node_type
 template ::File.join(node[:druid][:config_dir], node_type, "runtime.properties") do
   source "properties.erb"
   variables({ :properties => props })
+  owner node[:druid][:user]
+  group node[:druid][:group]
 end
 
 # Startup script
