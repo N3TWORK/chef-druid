@@ -20,6 +20,7 @@ end
 
 user node[:druid][:user] do
   gid node[:druid][:group]
+  home node[:druid][:install_dir]
 end
 
 directory node[:druid][:install_dir] do

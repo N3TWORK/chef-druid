@@ -1,5 +1,3 @@
-Chef::Log.info("********* XYZ ***********************")
-
 # Downloading
 default[:druid][:version] = "0.6.52"
 default[:druid][:mirror] = "http://static.druid.io/artifacts/releases"
