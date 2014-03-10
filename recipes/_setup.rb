@@ -11,7 +11,7 @@ node_type = File.basename(__FILE__, ".rb")
 
 Chef::Log.info("Setting up a Druid #{node_type} node")
 
-#include_recipe "java::default"
+include_recipe "java::default"
 
 # Create user and group
 group node[:druid][:group] do
