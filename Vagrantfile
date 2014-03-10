@@ -34,17 +34,13 @@ Vagrant.configure("2") do |config|
     #config.vm.network "forwarded_port", guest: 9092, host: 9092
 
     chef.json = {
-        "opsworks" => {
-            "instance" => {
-                "private_ip" => "127.0.0.1"
-            }
-        },
         "druid" => {
             "properties" => {
                 "druid.db.connector.connectURI" => "jdbc:mysql://127.0.0.1:3306/druid",
                 "druid.db.connector.user" => "root",
                 "druid.db.connector.password" => "",
-                "druid.zk.service.host" => "127.0.0.1:2181"
+                "druid.zk.service.host" => "127.0.0.1:2181",
+                "druid.extensions.coordinates" => "[\"io.druid.extensions:druid-s3-extensions:0.6.52\", \"io.druid.extensions:druid-kafka-eight:0.6.52\"]"
             }
         }
     }

@@ -11,7 +11,7 @@ node_type = File.basename(__FILE__, ".rb")
 
 Chef::Log.info("Setting up a Druid #{node_type} node")
 
-include_recipe "java::default"
+#include_recipe "java::default"
 
 # Create user and group
 group node[:druid][:group] do
@@ -66,6 +66,27 @@ type_specific_props = node[:druid][node_type][:properties].inject(Hash.new) {|h,
 
 props = common_props.merge(type_specific_props)
 props["druid.service"] = node_type
+
+
+# Download any extensions defined in runtime.properties, to avoid startup race conditions
+package "maven" do
+  action :install
+end
+
+ruby_block "download druid extensions" do
+  block do
+    extension_prop = props["druid.extensions.coordinates"]
+    if extension_prop
+      extensions = extension_prop.gsub(/[\[\]\" ]/, "").split(",")
+      extensions.each do |ext|
+        Chef::Log.info("Downloading extension: #{ext}")
+        system("mvn org.apache.maven.plugins:maven-dependency-plugin:2.1:get \
+                -DrepoUrl=https://metamx.artifactoryonline.com/metamx/pub-libs-releases-local/ \
+                -Dartifact=#{ext}") or raise "Error downloading #{ext}"
+      end
+    end
+  end
+end
 
 template ::File.join(node[:druid][:config_dir], node_type, "runtime.properties") do
   source "properties.erb"
