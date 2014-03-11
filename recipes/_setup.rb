@@ -80,7 +80,7 @@ ruby_block "download druid extensions" do
       extensions = extension_prop.gsub(/[\[\]\" ]/, "").split(",")
       extensions.each do |ext|
         Chef::Log.info("Downloading extension: #{ext}")
-        system("mvn org.apache.maven.plugins:maven-dependency-plugin:2.1:get \
+        system("sudo -u #{node[:druid][:user]} -g #{node[:druid][:group]} -i mvn org.apache.maven.plugins:maven-dependency-plugin:2.1:get \
                 -DrepoUrl=https://metamx.artifactoryonline.com/metamx/pub-libs-releases-local/ \
                 -Dartifact=#{ext}") or raise "Error downloading #{ext}"
       end
