@@ -27,6 +27,8 @@ Vagrant.configure("2") do |config|
     chef.cookbooks_path = ".."
     chef.run_list = [
         "recipe[#{cookbook_name}::coordinator]",
+        "recipe[#{cookbook_name}::overlord]",
+        "recipe[#{cookbook_name}::middleManager]",
         "recipe[#{cookbook_name}::broker]",
         "recipe[#{cookbook_name}::historical]"
     ]

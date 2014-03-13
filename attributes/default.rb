@@ -12,7 +12,6 @@ default[:druid][:config_dir] = "/etc/druid"
 # Configuration defaults
 default[:druid][:log_to_syslog] = 1
 default[:druid][:properties][:"druid.host"] = node[:ipaddress]
-
 default[:druid][:timezone] = "UTC"
 default[:druid][:encoding] = "UTF-8"
 default[:druid][:java_opts] = "-Xmx1G"
@@ -24,5 +23,9 @@ default[:druid][:realtime][:properties]["druid.port"] = 8082
 default[:druid][:historical][:properties]["druid.port"] = 8083
 default[:druid][:overlord][:properties]["druid.port"] = 8084
 default[:druid][:indexer][:properties]["druid.port"] = 8085
+default[:druid][:middleManager][:properties]["druid.port"] = 8086
+
+# Other
+default['java']['jdk_version'] = '7'
 
 
