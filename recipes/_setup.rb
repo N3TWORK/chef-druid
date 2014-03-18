@@ -67,32 +67,6 @@ type_specific_props = node[:druid][node_type][:properties].inject(Hash.new) { |h
 props = common_props.merge(type_specific_props)
 props["druid.service"] = node_type
 
-
-# Download any extensions defined in runtime.properties, to avoid startup race conditions
-package "maven" do
-  action :install
-end
-
-maven_mutex_file = "#{Chef::Config[:file_cache_path]}/#{druid_archive}"
-ruby_block "download druid extensions" do
-  block do
-    ::File.open(maven_mutex_file, ::File::RDWR) do |f|
-      f.flock(::File::LOCK_EX) or raise "Couldn't get an exclusive lock on #{maven_mutex_file}"
-
-      extension_prop = props["druid.extensions.coordinates"]
-      if extension_prop
-        extensions = extension_prop.gsub(/[\[\]\" ]/, "").split(",")
-        extensions.each do |ext|
-          Chef::Log.info("Downloading extension: #{ext}")
-          system("sudo -u #{node[:druid][:user]} -g #{node[:druid][:group]} -i mvn org.apache.maven.plugins:maven-dependency-plugin:2.1:get \
-                -DrepoUrl=https://metamx.artifactoryonline.com/metamx/pub-libs-releases-local/ \
-                -Dartifact=#{ext}") or raise "Error downloading #{ext}"
-        end
-      end
-    end
-  end
-end
-
 template ::File.join(node[:druid][:config_dir], node_type, "runtime.properties") do
   source "properties.erb"
   variables({:properties => props})

@@ -9,6 +9,8 @@ kill timeout 10
 setuid <%= @user %>
 setgid <%= @group %>
 
+respawn
+
 script
   chdir <%= @install_dir %>/current
   exec java -cp <%= @config_dir %>:<%= @install_dir %>/current/lib/* -server <%= @java_opts %> -Duser.timezone=<%= @timezone %> -Dfile.encoding=<%= @encoding %> io.druid.cli.Main server <%= @node_type %> <%= @command_suffix %>
