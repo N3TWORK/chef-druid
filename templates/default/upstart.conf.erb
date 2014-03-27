@@ -13,7 +13,7 @@ respawn
 
 script
   chdir <%= @install_dir %>/current
-  exec java -cp <%= @config_dir %>:<%= @install_dir %>/current/lib/* -server <%= @java_opts %> -Duser.timezone=<%= @timezone %> -Dfile.encoding=<%= @encoding %> io.druid.cli.Main server <%= @node_type %> <%= @command_suffix %>
+  exec java -cp <%= @config_dir %>:<%= @install_dir %>/current/lib/*<%= @extra_classpath %> -server <%= @java_opts %> -Duser.timezone=<%= @timezone %> -Dfile.encoding=<%= @encoding %> io.druid.cli.Main server <%= @node_type %> <%= @command_suffix %>
 end script
 
 post-start script

@@ -15,6 +15,7 @@ default[:druid][:properties][:"druid.host"] = node[:ipaddress]
 default[:druid][:timezone] = "UTC"
 default[:druid][:encoding] = "UTF-8"
 default[:druid][:java_opts] = "-Xmx1G"
+default[:druid][:extra_classpath] = ""
 
 # Type-specific defaults
 default[:druid][:broker][:properties]["druid.port"] = 8080

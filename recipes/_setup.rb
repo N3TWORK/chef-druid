@@ -76,6 +76,7 @@ end
 
 # Startup script
 service_name = "druid-#{node_type}"
+extra_classpath = props["druid.extra_classpath"]
 template "/etc/init/#{service_name}.conf" do
   source "upstart.conf.erb"
   variables({
@@ -88,7 +89,8 @@ template "/etc/init/#{service_name}.conf" do
                 :timezone => node[:druid][:timezone],
                 :encoding => node[:druid][:encoding],
                 :command_suffix => node[:druid][:log_to_syslog].to_s == "1" ? "2>&1 | logger -t #{service_name}" : "",
-                :port => props["druid.port"]
+                :port => props["druid.port"],
+                :extra_classpath => (extra_classpath.nil? || extra_classpath.empty?) ? "" : ":#{extra_classpath}"
             })
 end
 
