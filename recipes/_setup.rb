@@ -76,7 +76,7 @@ end
 
 # Startup script
 service_name = "druid-#{node_type}"
-extra_classpath = props["druid.extra_classpath"]
+extra_classpath = node[:druid][node_type]["druid.extra_classpath"] || node[:druid]["druid.extra_classpath"]
 template "/etc/init/#{service_name}.conf" do
   source "upstart.conf.erb"
   variables({
