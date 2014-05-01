@@ -1,61 +1,50 @@
-druid Cookbook
+Druid Cookbook
 ==============
-TODO: Enter the cookbook description here.
-
-e.g.
-This cookbook makes your favorite breakfast sandwich.
+Installs and configures the [Druid](http://druid.io/) real-time analytics system
 
 Requirements
 ------------
-TODO: List your cookbook requirements. Be sure to include any requirements this cookbook has on platforms, libraries, other cookbooks, packages, operating systems, etc.
+This cookbook is for Debian-based linux systems. It has been tested with Ubuntu using Vagrant as well as Amazon's AWS OpsWorks. Services are managed via *upstart*.
 
-e.g.
-#### packages
-- `toaster` - druid needs toaster to brown your bagel.
+Recipes
+----------
+There is one recipe per Druid service:
+
+* broker
+* coordinator
+* historical
+* middleManager
+* overlord
+* peon (rarely needed)
+* realtime
+* router (upcoming service)
 
 Attributes
 ----------
-TODO: List you cookbook attributes here.
+Most attributes are simply passed through to Druid's runtime.properties files. See [attributes/default.rb](attributes/default.rb) for the others.
 
-e.g.
-#### druid::default
+
 <table>
   <tr>
     <th>Key</th>
-    <th>Type</th>
     <th>Description</th>
-    <th>Default</th>
   </tr>
   <tr>
-    <td><tt>['druid']['bacon']</tt></td>
-    <td>Boolean</td>
-    <td>whether to include bacon</td>
-    <td><tt>true</tt></td>
+    <td><tt>['druid']['properties'][<i>property name</i>]</tt></td>
+    <td>properties which apply to all services</td>
+  </tr>
+  <tr>
+    <td><tt>['druid'][<i>service name</i>]['properties'][<i>property name</i>]</tt></td>
+    <td>properties which apply to one service</td>
   </tr>
 </table>
 
 Usage
 -----
-#### druid::default
-TODO: Write usage instructions for each cookbook.
-
-e.g.
-Just include `druid` in your node's `run_list`:
-
-```json
-{
-  "name":"my_node",
-  "run_list": [
-    "recipe[druid]"
-  ]
-}
-```
+See the [druid-example](https://github.com/N3TWORK/chef-druid-example/) cookbook for a working example.
 
 Contributing
 ------------
-TODO: (optional) If this is a public cookbook, detail the process for contributing. If this is a private cookbook, remove this section.
-
-e.g.
 1. Fork the repository on Github
 2. Create a named feature branch (like `add_component_x`)
 3. Write your change
@@ -65,4 +54,6 @@ e.g.
 
 License and Authors
 -------------------
-Authors: TODO: List authors
+Copyright 2014 N3TWORK, Inc.<br>
+Licensed under Apache 2.0<br>
+Written by Yuval Oren (yuval@n3twork.com)

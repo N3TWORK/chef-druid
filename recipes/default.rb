@@ -1,8 +1,4 @@
+# Copyright 2014 N3TWORK, Inc.
 #
-# Cookbook Name:: druid
-# Recipe:: default
-#
-# Copyright 2014, N3TWORK INC
-#
-# All rights reserved - Do Not Redistribute
-#
+# Licensed under Apache 2.0 - see the LICENSE file
+

@@ -1,3 +1,8 @@
+# Copyright 2014 N3TWORK, Inc.
+#
+# Licensed under Apache 2.0 - see the LICENSE file
+
+
 # Downloading
 default[:druid][:version] = "0.6.73"
 default[:druid][:mirror] = "http://static.druid.io/artifacts/releases"
