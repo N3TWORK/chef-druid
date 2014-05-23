@@ -4,9 +4,9 @@
 
 
 # Downloading
-default[:druid][:version] = "0.6.73"
+default[:druid][:version] = "0.6.105"
 default[:druid][:mirror] = "http://static.druid.io/artifacts/releases"
-default[:druid][:checksum] = "879b3ff8a2140b9e1fa193de603fc94d15b66b0c26b3eaa69ab91695437dec44"
+default[:druid][:checksum] = "eaa676ea2313f2b99ac84709f449e9b1714c1cf06460c6e476c6ec6cd21e6e7e"
 
 # Installation
 default[:druid][:user] = "druid"
