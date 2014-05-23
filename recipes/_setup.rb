@@ -2,7 +2,7 @@
 #
 # Licensed under Apache 2.0 - see the LICENSE file
 
-node_type = File.basename(__FILE__, ".rb")
+node_type = node[:druid][:node_type]
 
 Chef::Log.info("Setting up a Druid #{node_type} node")
 
