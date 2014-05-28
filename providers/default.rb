@@ -39,9 +39,9 @@ action :install do
 
   execute 'install druid' do
     cwd Chef::Config[:file_cache_path]
-    command "tar -C '#{node[:druid][:install_dir]}' -zxf '#{druid_archive}'"
-    user node[:druid][:user]
-    group node[:druid][:group]
+    command "chown -R root:root '#{node[:druid][:install_dir]}' && " +
+            "tar -C '#{node[:druid][:install_dir]}' -zxf '#{druid_archive}' && " +
+            "chown -R #{node[:druid][:user]}:#{node[:druid][:group]} '#{node[:druid][:install_dir]}'"
   end
 
   link_path = ::File.join(node[:druid][:install_dir], "current")
@@ -99,7 +99,7 @@ action :install do
                   :encoding => node[:druid][:encoding],
                   :command_suffix => node[:druid][:log_to_syslog].to_s == "1" ? "2>&1 | logger -t #{service_name}" : "",
                   :port => props["druid.port"],
-                  :extra_classpath => (extra_classpath.nil? || extra_classpath.empty?) ? "" : ":#{extra_classpath}"
+                  :extra_classpath => (extra_classpath.nil? || extra_classpath.empty?) ? "" : "#{extra_classpath}:"
               })
   end
 
