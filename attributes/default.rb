@@ -16,7 +16,7 @@ default[:druid][:config_dir] = "/etc/druid"
 
 # Configuration defaults
 default[:druid][:log_to_syslog] = 1
-default[:druid][:properties][:"druid.host"] = node[:ipaddress]
+default[:druid][:properties]["druid.host"] = node[:ipaddress]
 default[:druid][:timezone] = "UTC"
 default[:druid][:encoding] = "UTF-8"
 default[:druid][:java_opts] = "-Xmx1G"
